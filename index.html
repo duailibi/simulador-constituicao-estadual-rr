@@ -29,13 +29,74 @@
             color: #e2e8f0;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
+        /* Layout principal com duas colunas (simulado + PDF) */
+        .app-layout {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Coluna do simulador - flexível */
+        .simulator-content {
+            flex: 1;
+            min-width: 280px;
             background: inherit;
         }
 
-        .sim-header {
+        /* Coluna do PDF - largura fixa e responsiva */
+        .pdf-sidebar {
+            width: 360px;
+            flex-shrink: 0;
+            background: inherit;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        body.dark .pdf-sidebar {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .pdf-header {
+            background: #2563eb;
+            color: white;
+            padding: 12px 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+        }
+
+        .pdf-header span {
+            font-size: 1rem;
+        }
+
+        .pdf-viewer {
+            background: #eef2ff;
+            height: calc(100vh - 140px);
+            min-height: 550px;
+            overflow: hidden;
+        }
+
+        body.dark .pdf-viewer {
+            background: #0f172a;
+        }
+
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Container antigo (simulador) sem max-width fixo para ocupar o espaço */
+        .simulator-content .sim-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -48,12 +109,12 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        body.dark .sim-header {
+        body.dark .simulator-content .sim-header {
             background: #1e293bdd;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        h1 {
+        .simulator-content h1 {
             font-size: 1.7rem;
             font-weight: 600;
         }
@@ -225,23 +286,54 @@
             font-size: 0.8rem;
             opacity: 0.7;
         }
+
+        /* Responsividade: em telas menores, o PDF vai para baixo */
+        @media (max-width: 800px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            .pdf-sidebar {
+                width: 100%;
+                position: static;
+                top: auto;
+                margin-top: 20px;
+            }
+            .pdf-viewer {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
     </style>
 </head>
 <body class="light">
-<div class="container">
-    <div class="sim-header">
-        <h1>📘 Simulado Roraima – Arts. 30 a 67 e 111 a 116</h1>
-        <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+<div class="app-layout">
+    <!-- COLUNA PRINCIPAL: SIMULADO -->
+    <div class="simulator-content">
+        <div class="sim-header">
+            <h1>📘 Simulado Roraima – Arts. 30 a 67 e 111 a 116</h1>
+            <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+        </div>
+        <div class="progress-area">
+            <div class="score" id="scoreDisplay">✅ Acertos: 0 / 100</div>
+            <div class="controls">
+                <button id="checkAllBtn">✔️ Verificar todas</button>
+                <button id="resetAllBtn">🔄 Limpar respostas</button>
+            </div>
+        </div>
+        <div id="questionsContainer"></div>
+        <footer>Baseado na Constituição do Estado de Roraima (arts. 30 a 67 e 111 a 116). Simulador com 100 questões objetivas.</footer>
     </div>
-    <div class="progress-area">
-        <div class="score" id="scoreDisplay">✅ Acertos: 0 / 100</div>
-        <div class="controls">
-            <button id="checkAllBtn">✔️ Verificar todas</button>
-            <button id="resetAllBtn">🔄 Limpar respostas</button>
+
+    <!-- COLUNA DIREITA: VISUALIZADOR DE PDF -->
+    <div class="pdf-sidebar">
+        <div class="pdf-header">
+            <span>📄</span>
+            <span>Constituição do Estado de Roraima</span>
+        </div>
+        <div class="pdf-viewer">
+            <iframe src="constituicao-estado-de-rr.pdf" title="Constituição de Roraima"></iframe>
         </div>
     </div>
-    <div id="questionsContainer"></div>
-    <footer>Baseado na Constituição do Estado de Roraima (arts. 30 a 67 e 111 a 116). Simulador com 100 questões objetivas.</footer>
 </div>
 
 <script>
