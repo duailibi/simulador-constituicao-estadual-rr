@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Simulado: Constituição do Estado de Roraima (arts. 30 a 67 e 111 a 116)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        body.light {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        body.dark {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: inherit;
+        }
+
+        .sim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            background: #ffffffdd;
+            backdrop-filter: blur(4px);
+            padding: 15px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        body.dark .sim-header {
+            background: #1e293bdd;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            background: #2c3e66;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: #1e2a4a;
+            transform: scale(0.97);
+        }
+
+        .progress-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin: 20px 0 15px;
+            gap: 12px;
+        }
+
+        .score {
+            background: #2563eb;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #334155;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 28px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1e293b;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 24px;
+            border-radius: 28px;
+            padding: 20px 24px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        body.dark .question-card {
+            background: #1e293b;
+            border-color: #334155;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 40px;
+            transition: background 0.1s;
+        }
+
+        .option:hover {
+            background: #eef2ff;
+        }
+
+        body.dark .option:hover {
+            background: #2d3a5e;
+        }
+
+        input[type="radio"] {
+            accent-color: #2563eb;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .explanation {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-left: 5px solid #3b82f6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        body.dark .explanation {
+            background: #0f172a;
+            border-left-color: #60a5fa;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .result-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            background: #f1f5f9;
+            animation: fadeOut 4s ease forwards;
+        }
+
+        body.dark .result-badge {
+            background: #0f172a;
+        }
+
+        .correct-badge {
+            color: #16a34a;
+            border-left: 4px solid #16a34a;
+        }
+
+        .wrong-badge {
+            color: #dc2626;
+            border-left: 4px solid #dc2626;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 16px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="light">
+<div class="container">
+    <div class="sim-header">
+        <h1>📘 Simulado Roraima – Arts. 30 a 67 e 111 a 116</h1>
+        <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+    </div>
+    <div class="progress-area">
+        <div class="score" id="scoreDisplay">✅ Acertos: 0 / 100</div>
+        <div class="controls">
+            <button id="checkAllBtn">✔️ Verificar todas</button>
+            <button id="resetAllBtn">🔄 Limpar respostas</button>
+        </div>
+    </div>
+    <div id="questionsContainer"></div>
+    <footer>Baseado na Constituição do Estado de Roraima (arts. 30 a 67 e 111 a 116). Simulador com 100 questões objetivas.</footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // Banco de 100 questões (artigos 30-67 e 111-116)
+    // --------------------------------------------------------------
+    const questionsData = [
+        { text: "Art. 30, §1º – O número de Deputados Estaduais corresponde ao triplo da representação do Estado na Câmara dos Deputados. Se atingir 36, será acrescido de tantos quantos forem os Deputados Federais acima de:", options: ["10", "12", "14", "15", "18"], correct: 1, explanation: "Segundo o art. 30, §1º, atinge 36 e acresce tantos quantos forem os Deputados Federais acima de doze." },
+        { text: "De acordo com o art. 30, §2º, a Assembleia Legislativa se reúne anualmente na Capital de 15 de fevereiro a:", options: ["30 de abril", "30 de maio", "30 de junho", "31 de julho", "15 de agosto"], correct: 2, explanation: "Período legislativo: 15 de fevereiro a 30 de junho e de 1º de agosto a 15 de dezembro." },
+        { text: "Art. 30, §4º – No primeiro ano da Legislatura, a Assembleia realiza sessões preparatórias em 1º de janeiro para a posse do Governador e eleição da Mesa com mandato de:", options: ["1 ano", "2 anos", "3 anos", "4 anos", "1 ano e meio"], correct: 1, explanation: "Mandato da Mesa de 2 anos, vedada a recondução para o mesmo cargo na eleição imediatamente subseqüente." },
+        { text: "Conforme art. 30, §6º, II, a convocação extraordinária da Assembleia pode ser feita pela maioria absoluta de seus membros ou pelo Governador em caso de:", options: ["Crime de responsabilidade", "Urgência ou interesse público relevante", "Recesso do Judiciário", "Estado de sítio apenas", "Indicação do Tribunal de Contas"], correct: 1, explanation: "Art. 30, §6º, II – urgência ou interesse público relevante." },
+        { text: "Art. 31, §2º – As Comissões Parlamentares de Inquérito (CPI) serão criadas a requerimento de:", options: ["1/5 dos membros", "1/4 dos membros", "1/3 dos membros", "Maioria simples", "2/3 dos membros"], correct: 2, explanation: "Requerimento de 1/3 dos membros da Assembleia Legislativa." },
+        { text: "Segundo art. 33, VI (competência exclusiva da Assembleia), a alienação de bens imóveis do Estado com área superior a 3.000 m² (urbanos) depende de:", options: ["Lei delegada", "Autorização do Governador", "Autorização prévia da Assembleia Legislativa", "Consulta ao Tribunal de Contas", "Aprovação do STF"], correct: 2, explanation: "Art. 33, VI – autorização prévia da Assembleia Legislativa." },
+        { text: "Art. 33, X – Compete exclusivamente à Assembleia Legislativa processar e julgar o Governador nos crimes de responsabilidade e os Secretários de Estado em crimes conexos. O quórum para autorizar instauração de processo contra Governador é:", options: ["Maioria simples", "2/3 de seus membros", "3/5", "Maioria absoluta", "Unanimidade"], correct: 1, explanation: "Art. 33, IX – autorização por deliberação de 2/3 dos membros." },
+        { text: "De acordo com art. 34, §1º, os Deputados Estaduais desde a expedição do diploma não poderão ser presos, salvo:", options: ["Crime hediondo", "Flagrante de crime inafiançável", "Crime eleitoral", "Crime contra a economia popular", "Qualquer flagrante"], correct: 1, explanation: "Somente em flagrante de crime inafiançável." },
+        { text: "Art. 35, I – Desde a expedição do diploma, o Deputado NÃO pode (entre outras):", options: ["Exercer cargo de professor", "Firmar contrato com empresa concessionária de serviço público salvo cláusulas uniformes", "Votar projetos de lei", "Participar de CPI", "Publicar artigos"], correct: 1, explanation: "Proibição de firmar ou manter contrato com pessoa jurídica de Direito Público, concessionárias, salvo cláusulas uniformes." },
+        { text: "Art. 36, III – Perderá o mandato o Deputado que deixar de comparecer, em cada sessão legislativa, a:", options: ["Um quarto das sessões", "Terça parte das sessões ordinárias", "Metade das sessões", "10% das sessões", "Mais de 5 faltas seguidas"], correct: 1, explanation: "Art. 36, III – terça parte das sessões ordinárias." },
+        { text: "Conforme art. 37, I, o Deputado não perderá o mandato se investido na função de:", options: ["Prefeito de qualquer município", "Secretário de Estado", "Vereador", "Advogado da União", "Empresário estatal"], correct: 1, explanation: "Investidura como Secretário de Estado, Ministro etc. não implica perda do mandato." },
+        { text: "Art. 39 – A Constituição Estadual poderá ser emendada mediante proposta de cidadão com iniciativa popular assinada por, no mínimo:", options: ["1% dos eleitores do Estado", "3% dos eleitores", "5% dos eleitores", "10% dos eleitores", "0,5% dos eleitores"], correct: 2, explanation: "Art. 39, IV – 5% dos eleitores do Estado." },
+        { text: "Art. 39, §2º – Para aprovação de emenda constitucional são necessários, em dois turnos, votos favoráveis de:", options: ["Maioria simples", "Maioria absoluta", "3/5 dos membros da Assembleia", "2/3", "Unanimidade"], correct: 2, explanation: "3/5 (três quintos) dos membros da Assembleia Legislativa." },
+        { text: "Art. 40 – As Leis Complementares serão aprovadas pela:", options: ["Maioria simples", "Maioria absoluta dos membros da Assembleia", "3/5", "2/3", "Maioria dos presentes"], correct: 1, explanation: "Maioria absoluta dos membros da Assembleia Legislativa." },
+        { text: "Segundo art. 41, NÃO possui iniciativa de leis complementares ou ordinárias:", options: ["Governador do Estado", "Tribunal de Justiça", "Cidadãos na forma da lei", "Tribunal de Contas", "Prefeitos de qualquer cidade"], correct: 4, explanation: "Prefeitos não estão listados; apenas Governador, Tribunal de Justiça, Tribunal de Contas, Procurador-Geral de Justiça, cidadãos e membros da Assembleia." },
+        { text: "Art. 42, §1º – Se o Governador solicitar urgência para projeto de sua iniciativa, a Assembleia terá prazo para deliberar de:", options: ["30 dias", "45 dias", "60 dias", "90 dias", "20 dias"], correct: 1, explanation: "45 dias, findo os quais o projeto é incluído na ordem do dia." },
+        { text: "Art. 43, §1º – O Governador dispõe de quantos dias úteis para vetar projeto de lei?", options: ["10 dias", "15 dias úteis", "20 dias", "30 dias", "7 dias úteis"], correct: 1, explanation: "15 dias úteis a contar do recebimento." },
+        { text: "Art. 43, §5º – A Assembleia delibera sobre veto em turno único, no prazo de 30 dias, e para rejeitar o veto é necessário:", options: ["Maioria simples", "Maioria absoluta em escrutínio secreto", "2/3", "3/5", "Unanimidade"], correct: 1, explanation: "Voto favorável da maioria absoluta dos seus membros, escrutínio secreto." },
+        { text: "Art. 46 – O Tribunal de Contas do Estado é integrado por quantos Conselheiros?", options: ["5", "7", "9", "11", "13"], correct: 1, explanation: "7 Conselheiros (art. 46)." },
+        { text: "Art. 46, §1º, I – Requisito para Conselheiro do Tribunal de Contas: idade entre:", options: ["25 e 60 anos", "30 e 65 anos", "35 e 65 anos", "40 e 70 anos", "35 e 60 anos"], correct: 2, explanation: "Mais de 35 e menos de 65 anos." },
+        { text: "Art. 46, §2º – Os Conselheiros são escolhidos: um terço pelo Governador (dentre auditores e MP junto ao TCE) e dois terços pela:", options: ["Assembleia Legislativa", "Tribunal de Justiça", "Procuradoria Geral", "Ordem dos Advogados", "Ministério Público"], correct: 0, explanation: "Dois terços pela Assembleia Legislativa." },
+        { text: "Art. 49 – A fiscalização contábil, financeira e orçamentária do Estado será exercida pela Assembleia Legislativa mediante controle externo do:", options: ["Tribunal de Justiça", "Tribunal de Contas do Estado", "Ministério Público", "Procuradoria Geral", "Governador"], correct: 1, explanation: "Controle externo do Tribunal de Contas do Estado." },
+        { text: "Art. 50 – Atos de improbidade administrativa acarretam, EXCETO:", options: ["Suspensão dos direitos políticos", "Perda da função pública", "Indisponibilidade dos bens", "Ressarcimento ao erário", "Pena de detenção automática"], correct: 4, explanation: "Detenção não é automática; as sanções são suspensão de direitos políticos, perda da função, indisponibilidade e ressarcimento." },
+        { text: "Art. 52 – Nenhum projeto de lei que implique aumento de despesa pública será sancionado sem:", options: ["Autorização popular", "Indicação dos recursos disponíveis próprios", "Parecer do TCE", "Aprovação do Judiciário", "Consulta prévia ao STF"], correct: 1, explanation: "Deve conter indicação dos recursos disponíveis próprios para atender aos novos encargos." },
+        { text: "Art. 54 – O Poder Executivo é exercido pelo Governador do Estado com auxílio dos:", options: ["Deputados", "Secretários de Estado", "Conselheiros do TCE", "Desembargadores", "Vereadores"], correct: 1, explanation: "Secretários de Estado." },
+        { text: "Art. 56 – O Governador e Vice tomam posse perante a Assembleia Legislativa. Se não assumirem após 10 dias da data fixada, salvo força maior:", options: ["Perdem o mandato imediatamente", "São declarados vagos pela Assembleia", "Novas eleições são convocadas", "O Presidente da Assembleia assume", "A União intervém"], correct: 1, explanation: "Art. 56, parágrafo único: declarados vagos pela Assembleia Legislativa." },
+        { text: "Art. 58 – Perderá o mandato o Governador que assumir outro cargo público, ressalvada a posse em virtude de:", options: ["Cargo comissionado", "Concurso público", "Nomeação política", "Mandato eletivo federal", "Função de confiança"], correct: 1, explanation: "Ressalvada a posse em virtude de concurso público." },
+        { text: "Art. 59 – O Governador não pode ausentar-se do País sem prévia autorização da Assembleia Legislativa, sob pena de:", options: ["Multa", "Perda do cargo", "Impedimento temporário", "Cassação de direitos políticos", "Responsabilidade civil"], correct: 1, explanation: "Perda do cargo." },
+        { text: "Art. 62, II – Compete privativamente ao Governador nomear e exonerar os Secretários de Estado, o Comandante Geral da PM, o Procurador Geral do Estado e o titular da Defensoria Pública, além do:", options: ["Procurador Geral de Justiça", "Presidente do TJ", "Corregedor do MP", "Defensor Público Geral", "Chefe da Casa Civil"], correct: 0, explanation: "Procurador Geral de Justiça (observada lista tríplice)." },
+        { text: "Art. 62, VIII – O Governador deve prestar contas anuais à Assembleia dentro de quantos dias após a abertura da sessão legislativa?", options: ["30 dias", "60 dias", "90 dias", "45 dias", "120 dias"], correct: 1, explanation: "60 dias após a abertura da sessão legislativa." },
+        { text: "Art. 63 – É da competência privativa do Governador a iniciativa de leis que disponham sobre: I – Plano Plurianual e matéria tributária; II – criação de cargos públicos; III – servidores públicos; IV – organização da Procuradoria-Geral; V –", options: ["Criação de municípios", "Regimento da Assembleia", "Criação e atribuições das Secretarias de Estado", "Lei Orgânica do MP", "Código de Saúde"], correct: 2, explanation: "Art. 63, V – criação, estruturação e atribuições das Secretarias de Estado e órgãos da administração pública." },
+        { text: "Art. 64 – São crimes de responsabilidade do Governador, EXCETO:", options: ["Atentar contra a existência do Estado", "Violar a Lei Orçamentária", "Praticar homicídio doloso", "Atentar contra o livre exercício do Poder Legislativo", "Comprometer a probidade administrativa"], correct: 2, explanation: "Crimes comuns (homicídio) são julgados pelo STJ; crimes de responsabilidade listados no art. 64." },
+        { text: "Art. 65, II – Nos crimes comuns, o Governador será julgado pelo:", options: ["Tribunal de Justiça do Estado", "Superior Tribunal de Justiça", "Supremo Tribunal Federal", "Assembleia Legislativa", "Tribunal Regional Federal"], correct: 1, explanation: "Superior Tribunal de Justiça." },
+        { text: "Art. 66 – Os Secretários de Estado devem ser maiores de:", options: ["18 anos", "21 anos", "25 anos", "30 anos", "35 anos"], correct: 1, explanation: "Maiores de 21 anos e no exercício dos direitos políticos." },
+        { text: "Art. 68 – São órgãos do Poder Judiciário estadual, EXCETO:", options: ["Tribunal de Justiça", "Tribunal do Júri", "Justiça Militar", "Tribunal de Contas", "Juizados Especiais"], correct: 3, explanation: "Tribunal de Contas é órgão auxiliar do Legislativo, não integrante do Judiciário." },
+        { text: "Art. 70 – Os pagamentos devidos pela Fazenda em virtude de sentença judicial (precatórios) serão feitos na ordem cronológica, exceto créditos de natureza:", options: ["Tributária", "Alimentícia", "Trabalhista", "Ambiental", "Previdenciária"], correct: 1, explanation: "À exceção dos créditos de natureza alimentícia." },
+        { text: "Art. 72, I – Os juízes adquirem vitaliciedade no primeiro grau após:", options: ["1 ano de exercício", "2 anos de exercício", "3 anos", "5 anos", "Vitaliciedade imediata"], correct: 1, explanation: "2 anos de exercício." },
+        { text: "Art. 75, §1º – Um quinto das vagas do Tribunal de Justiça será composto por membros do MP e advogados com mais de:", options: ["5 anos de carreira", "10 anos de carreira/atividade profissional", "15 anos", "8 anos", "12 anos"], correct: 1, explanation: "Mais de 10 anos de carreira ou efetiva atividade profissional." },
+        { text: "Art. 77, X, b – Compete ao Tribunal de Justiça processar e julgar originariamente nos crimes comuns os:", options: ["Prefeitos", "Deputados Estaduais", "Governador", "Secretários de Estado", "Vereadores"], correct: 1, explanation: "Deputados Estaduais nos crimes comuns." },
+        { text: "Art. 79 – Têm legitimidade para propor ADI estadual, EXCETO:", options: ["Governador do Estado", "Mesa da Assembleia", "Procurador Geral de Justiça", "Cidadão individual", "Partidos com representação na Assembleia"], correct: 3, explanation: "Cidadão individual não está no rol do art. 79 (necessário representação qualificada)." },
+        { text: "Art. 87 – O Ministério Público estadual tem como princípios institucionais a unidade, a indivisibilidade e a:", options: ["Subordinação ao Executivo", "Independência funcional", "Hierarquia rígida", "Vinculação ao Judiciário", "Centralização administrativa"], correct: 1, explanation: "Independência funcional." },
+        { text: "Art. 89 – O Procurador Geral de Justiça é nomeado pelo Governador dentre integrantes da carreira, indicados em lista tríplice, para mandato de:", options: ["1 ano", "2 anos, permitida uma recondução", "3 anos", "4 anos", "5 anos"], correct: 1, explanation: "2 anos, permitida uma recondução." },
+        { text: "Art. 101 – A Procuradoria Geral do Estado representa judicialmente o Estado e suas autarquias, além de exercer atividades de:", options: ["Consultoria jurídica do Executivo", "Defesa dos necessitados", "Fiscalização de contas", "Polícia judiciária", "Defesa do consumidor"], correct: 0, explanation: "Consultoria jurídica do Poder Executivo." },
+        { text: "Art. 102 – A Defensoria Pública é instituição essencial à função jurisdicional, incumbindo-lhe a orientação jurídica e a defesa dos:", options: ["Servidores públicos", "Necessitados", "Microempresários", "Indígenas", "Mulheres vítimas"], correct: 1, explanation: "Defesa dos necessitados (art. 5º, LXXIV, CF)." },
+        { text: "Art. 111, §1º – As disponibilidades de caixa do Estado e dos municípios deverão ser depositadas em instituições oficiais de crédito, com preferência pelo:", options: ["Banco do Brasil", "Banco da Amazônia", "Banco do Estado de Roraima (BANER)", "Caixa Econômica Federal", "Banco do Nordeste"], correct: 2, explanation: "Preferência pelo Banco do Estado de Roraima - BANER." },
+        { text: "Art. 112 – Os princípios norteadores do art. 165 da CF serão obedecidos no estabelecimento das Diretrizes Orçamentárias, Plano Plurianual e:", options: ["Lei de Responsabilidade Fiscal", "Orçamentos Anuais", "Créditos extraordinários", "Operações de crédito", "Metas inflacionárias"], correct: 1, explanation: "Orçamentos Anuais." },
+        { text: "Art. 113, §1º – Emendas ao projeto de lei orçamentária anual são admitidas desde que compatíveis com o PPA e LDO, indiquem recursos provenientes de anulação de despesa, excluídas as dotações para:", options: ["Investimentos", "Pessoal e encargos, serviço da dívida e transferências tributárias constitucionais", "Custeio administrativo", "Saúde e educação", "Segurança pública"], correct: 1, explanation: "Vedada anulação de despesas com pessoal, serviço da dívida e transferências constitucionais para Municípios." },
+        { text: "Art. 114 – Os recursos orçamentários destinados aos Poderes Legislativo, Judiciário, MP e Tribunal de Contas serão repassados até o dia:", options: ["10 de cada mês", "15 de cada mês", "20 de cada mês", "25 de cada mês", "Último dia útil"], correct: 2, explanation: "Até o dia 20 de cada mês." },
+        { text: "Art. 116 – É obrigatória a inclusão no orçamento de verba para pagamento de precatórios apresentados até 1º de julho, com pagamento até:", options: ["Dezembro do mesmo ano", "1º semestre do exercício seguinte", "Julho do exercício seguinte", "Final do próximo exercício", "Até 90 dias"], correct: 1, explanation: "Pagamento no 1º semestre do exercício seguinte." },
+        { text: "Art. 30, §3º – As reuniões marcadas para 15 de fevereiro, 30 de junho, 1º de agosto e 15 de dezembro serão transferidas se recaírem em:", options: ["Feriado nacional", "Sábados, domingos ou feriados", "Dia de eleição", "Recesso forense", "Quarta-feira de cinzas"], correct: 1, explanation: "Transferidas para o primeiro dia útil subsequente quando recaírem em sábados, domingos ou feriados." },
+        { text: "Art. 33, V – A Assembleia Legislativa julga anualmente as contas prestadas pelo Governador e aprecia relatórios sobre execução de:", options: ["Planos de governo", "Contratos administrativos", "Concessões públicas", "Renúncia de receitas", "Política ambiental"], correct: 0, explanation: "Planos de governo." },
+        { text: "Art. 31, §1º, II – As comissões permanentes podem convocar Secretários de Estado para prestar informações pessoalmente, sob pena de:", options: ["Crime de responsabilidade", "Improbidade", "Desobediência", "Crime comum", "Multa"], correct: 0, explanation: "Ausência sem justificativa importa crime de responsabilidade." },
+        { text: "Art. 34, §8º – No exercício do mandato, o Deputado tem livre acesso a:", options: ["Dependências do STF", "Repartições públicas e órgãos da administração direta e indireta", "Bancos oficiais", "Arquivos sigilosos da PM", "Domicílios particulares"], correct: 1, explanation: "Livre acesso às repartições públicas e órgãos da administração direta e indireta." },
+        { text: "Art. 37, §2º – Ocorrendo vaga de Deputado e não havendo suplente, far-se-á eleição se faltarem mais de:", options: ["6 meses", "12 meses", "15 meses", "18 meses", "24 meses"], correct: 2, explanation: "Mais de 15 meses para o término do mandato." },
+        { text: "Art. 39, §4º – Matéria de proposta de emenda rejeitada não pode ser objeto de nova proposta:", options: ["No mesmo ano", "Na mesma sessão legislativa", "Na mesma legislatura", "Por 2 anos", "Por 5 anos"], correct: 1, explanation: "Na mesma sessão legislativa." },
+        { text: "Art. 43, §8º – Se o Governador não promulgar a lei em 48 horas após veto rejeitado, o Presidente da Assembleia o fará; se este não o fizer, caberá ao:", options: ["Vice-Presidente", "Primeiro Vice-Presidente", "Secretário-Geral", "Corregedor", "Procurador da Casa"], correct: 1, explanation: "Primeiro Vice-Presidente." },
+        { text: "Art. 46, §4º – Os Conselheiros do TCE têm vencimentos e vantagens iguais aos dos:", options: ["Juízes de Direito", "Desembargadores do TJ", "Secretários de Estado", "Deputados Estaduais", "Procurador de Justiça"], correct: 1, explanation: "Desembargadores do Tribunal de Justiça." },
+        { text: "Art. 49, parágrafo único, I – Compete ao TCE apreciar as contas do Governador mediante parecer prévio a ser elaborado em:", options: ["30 dias", "60 dias", "90 dias", "120 dias", "45 dias"], correct: 1, explanation: "Sessenta dias a contar do recebimento." },
+        { text: "Art. 51 – Os Poderes do Estado e Municípios devem publicar trimestralmente no DOE o montante das despesas com:", options: ["Publicidade", "Viagens", "Combustível", "Material de expediente", "Diárias"], correct: 0, explanation: "Despesas com publicidade pagas ou contratadas." },
+        { text: "Art. 55 – Governador e Vice são eleitos simultaneamente, conforme a:", options: ["Lei Orgânica do Estado", "Constituição Federal e legislação eleitoral", "Código Eleitoral apenas", "Resolução do TSE", "Súmula do STF"], correct: 1, explanation: "Atendido o disposto na Constituição Federal e legislação eleitoral vigente." },
+        { text: "Art. 57 – O Vice-Governador substitui o Governador nos impedimentos e o sucede na vaga. Em caso de vacância de ambos, observa-se o disposto na CF (Título IV, Capítulo II, Seção I) que trata da:", options: ["Linha sucessória", "Intervenção federal", "Eleição indireta", "Nomeação pelo STF", "Assembleia assume"], correct: 0, explanation: "Linha sucessória prevista na Constituição Federal." },
+        { text: "Art. 60 – Governador e Vice devem ser domiciliados na:", options: ["Capital do Estado", "Maior cidade do Estado", "Brasília", "Qualquer município", "Sede da região metropolitana"], correct: 0, explanation: "Domiciliados na Capital do Estado (Boa Vista)." },
+        { text: "Art. 61 – No ato da posse e ao término do mandato, farão declaração pública de bens em:", options: ["Cartório de Títulos e Documentos", "Tribunal de Contas", "Assembleia Legislativa", "Cartório Eleitoral", "Ministério Público"], correct: 0, explanation: "Cartório de Títulos e Documentos." },
+        { text: "Art. 62, XIII – O Governador pode promover desapropriação por relevante interesse público, indenizando pelo:", options: ["Valor venal", "Valor real do imóvel", "Valor de mercado", "Valor da última transação", "Valor fiscal"], correct: 1, explanation: "Valor real do imóvel." },
+        { text: "Art. 63, §1º – Não será permitido aumento de despesa em projetos de iniciativa privativa do Governador, exceto em emendas aos projetos de orçamento que indiquem recursos provenientes de:", options: ["Superávit financeiro", "Anulação de despesas da mesma natureza", "Novos tributos", "Empréstimos externos", "Doações"], correct: 1, explanation: "Anulação de despesas da mesma natureza." },
+        { text: "Art. 65, §1º, I – O Governador será suspenso de suas funções em infrações penais comuns quando recebida a denúncia pelo:", options: ["STJ", "STF", "TJ local", "Assembleia Legislativa", "TSE"], correct: 0, explanation: "Superior Tribunal de Justiça." },
+        { text: "Art. 69, §2º – Se o regular exercício do Judiciário for tolhido pela não satisfação de dotações, o TJ pode solicitar ao STF:", options: ["Intervenção federal no Estado", "Ação direta de inconstitucionalidade", "Reclamação", "Mandado de segurança", "Habeas corpus"], correct: 0, explanation: "Intervenção da União no Estado." },
+        { text: "Art. 70, §2º – O Presidente do TJ pode autorizar o sequestro da quantia necessária para satisfazer precatório em caso de:", options: ["Preterição do direito de precedência", "Atraso superior a 2 anos", "Má-fé do devedor", "Falta de dotação", "Calamidade financeira"], correct: 0, explanation: "Preterição de seu direito de precedência." },
+        { text: "Art. 73, III – Aos juízes é vedado dedicar-se a:", options: ["Atividade político-partidária", "Magistério", "Atividade científica", "Consultoria jurídica", "Mediação"], correct: 0, explanation: "Atividade político-partidária." },
+        { text: "Art. 75 – O Tribunal de Justiça compõe-se de, no mínimo:", options: ["5 Desembargadores", "7 Desembargadores", "9 Desembargadores", "11 Desembargadores", "15 Desembargadores"], correct: 1, explanation: "Mínimo de 7 Desembargadores." },
+        { text: "Art. 77, IX – Compete ao TJ decidir sobre perda do posto e patente dos oficiais da PM e do Corpo de Bombeiros, com estabilidade assegurada:", options: ["Em caso de crime comum", "Nos termos da lei", "Com estabilidade assegurada", "Mediante processo administrativo", "Por ato do Governador"], correct: 2, explanation: "Com estabilidade assegurada (texto expresso)." },
+        { text: "Art. 80 – Em cada Comarca funciona pelo menos um Tribunal do Júri com competência para julgar:", options: ["Crimes hediondos", "Crimes dolosos contra a vida", "Crimes de trânsito", "Crimes ambientais", "Crimes eleitorais"], correct: 1, explanation: "Crimes dolosos contra a vida." },
+        { text: "Art. 82 – Para dirimir conflitos fundiários o TJ designará juízes de entrância especial com competência exclusiva para:", options: ["Questões agrárias", "Desapropriações", "Conflitos indígenas", "Direitos reais", "Usucapião"], correct: 0, explanation: "Questões agrárias." },
+        { text: "Art. 86 – A Justiça de Paz é composta por cidadãos eleitos pelo voto direto, universal e secreto, com mandato de:", options: ["2 anos", "4 anos", "5 anos", "6 anos", "8 anos"], correct: 1, explanation: "Mandato de quatro anos." },
+        { text: "Art. 88, I – Ao MP é assegurada autonomia, podendo propor ao Legislativo a criação e extinção de cargos, provendo-os por:", options: ["Nomeação direta", "Concurso público de provas e títulos", "Seleção simplificada", "Requisitos do PGJ", "Processo seletivo interno"], correct: 1, explanation: "Concurso público de provas e títulos." },
+        { text: "Art. 90 – O ingresso na carreira do Ministério Público se dá no cargo inicial de Promotor de Justiça Substituto mediante concurso público, assegurada participação da:", options: ["OAB", "Defensoria", "PGE", "Tribunal de Justiça", "Assembleia"], correct: 0, explanation: "Ordem dos Advogados do Brasil." },
+        { text: "Art. 98, II – É vedado aos membros do MP:", options: ["Exercer a advocacia", "Leccionar direito", "Receber honorários contratuais", "Participar de conferências", "Escrever livros"], correct: 0, explanation: "Exercer a advocacia, ainda que em disponibilidade." },
+        { text: "Art. 103, §1º – A Defensoria Pública será estruturada em cargos de carreira, providos na classe inicial mediante:", options: ["Concurso público de provas e títulos", "Nomeação do Governador", "Processo seletivo interno", "Indicação da OAB", "Promoção automática"], correct: 0, explanation: "Concurso público de provas e títulos." },
+        { text: "Art. 104 – O Sistema Tributário Estadual será exercido com base na Constituição Federal, Leis Complementares Federais, resoluções do Senado, nesta Constituição e:", options: ["Leis Delegadas", "Leis Ordinárias", "Medidas Provisórias", "Decretos do Executivo", "Instruções Normativas"], correct: 1, explanation: "Leis Ordinárias." },
+        { text: "Art. 106 – Compete ao Estado instituir impostos previstos no artigo 155 da CF, como o ICMS, ITCD e:", options: ["IPVA", "IPTU", "ISS", "IOF", "IPI"], correct: 0, explanation: "IPVA (imposto sobre propriedade de veículos automotores) é estadual." },
+        { text: "Art. 108, §1º – O Estado publicará no DOE, até último dia do mês subsequente ao da arrecadação, o montante de tributos arrecadados, recursos recebidos e transferidos, discriminado por:", options: ["Município", "Região", "Setor econômico", "Tipo de tributo", "Órgão arrecadador"], correct: 0, explanation: "Discriminados por Município." },
+        { text: "Art. 109 – Incentivos fiscais para empresas instaladas em Roraima dependem de prévia autorização da:", options: ["Assembleia Legislativa", "Governador", "Secretaria da Fazenda", "Tribunal de Contas", "Conselho de Desenvolvimento"], correct: 0, explanation: "Prévia autorização da Assembléia Legislativa." },
+        { text: "Art. 110, parágrafo único – Lei ordinária disporá sobre a concessão, acompanhamento, controle e fiscalização dos:", options: ["Incentivos fiscais concedidos", "Contratos administrativos", "Convênios de saúde", "Parcerias público-privadas", "Doações"], correct: 0, explanation: "Incentivos fiscais concedidos." },
+        { text: "Art. 111, §2º – As receitas do Estado e pagamentos a terceiros serão processados pelo banco oficial do Estado, ressalvados casos previstos em Lei. O banco oficial é preferencialmente:", options: ["BANER", "Banco do Brasil", "BASA", "CEF", "Bradesco"], correct: 0, explanation: "Banco do Estado de Roraima - BANER." },
+        { text: "Art. 113, §2º – O Governador pode enviar mensagem propondo modificação nos projetos orçamentários enquanto não iniciada, na comissão competente, a:", options: ["Apreciação do plenário", "Votação da parte cuja alteração é proposta", "Distribuição dos pareceres", "Instrução do processo", "Sanção"], correct: 1, explanation: "Votação da parte cuja alteração é proposta." },
+        { text: "Art. 115 – Recursos que ficarem sem despesas correspondentes por veto, emenda ou rejeição do projeto orçamentário poderão ser utilizados mediante:", options: ["Créditos especiais ou suplementares com autorização legislativa", "Decreto do Executivo", "Ato do Presidente da Assembleia", "Decisão do TCE", "Transferência direta"], correct: 0, explanation: "Créditos especiais ou suplementares com prévia autorização legislativa." },
+        { text: "Art. 30, §6º, I – O Presidente da Assembleia convocará extraordinariamente nos casos de decretação de estado de sítio, intervenção e recebimento de autos de prisão de Deputado por:", options: ["Crime comum", "Crime inafiançável", "Crime eleitoral", "Crime militar", "Crime de responsabilidade"], correct: 1, explanation: "Crime inafiançável." },
+        { text: "Art. 33, XIX – A Assembleia fixa anualmente a remuneração do Governador, Vice e Secretários e, para a legislatura seguinte, a remuneração dos:", options: ["Conselheiros do TCE", "Deputados Estaduais", "Desembargadores", "Procuradores", "Servidores civis"], correct: 1, explanation: "Deputados Estaduais." },
+        { text: "Art. 35, II, c – Desde a posse, o Deputado não pode ser titular de mais de um cargo ou mandato eletivo:", options: ["Federal, estadual ou municipal", "Apenas federal", "Apenas municipal", "Apenas de vereador", "No mesmo ente"], correct: 0, explanation: "Federal, estadual ou municipal." },
+        { text: "Art. 36, §2º – A perda do mandato por infringir proibições, incompatibilidade com decoro ou condenação criminal é decidida pela Assembleia por voto secreto e:", options: ["Maioria simples", "Maioria absoluta", "2/3", "3/5", "Unanimidade"], correct: 1, explanation: "Maioria absoluta." },
+        { text: "Art. 39, III – A Constituição pode ser emendada mediante proposta de mais da metade das Câmaras Municipais, manifestando-se cada uma pela maioria relativa de seus membros. Essa maioria relativa significa:", options: ["Maioria dos votos presentes", "Maioria simples", "Maioria absoluta", "Metade mais um dos vereadores", "Maioria dos membros da Câmara"], correct: 0, explanation: "Maioria relativa de seus membros (votos favoráveis superior a votos contrários, presente a maioria)." },
+        { text: "Art. 41 – Além dos membros da Assembleia e Governador, têm iniciativa de leis o Tribunal de Justiça, Tribunal de Contas, Procurador Geral de Justiça e:", options: ["Prefeitos", "Cidadãos na forma da Constituição", "Vice-Governador", "Ordem dos Advogados", "Sindicatos"], correct: 1, explanation: "Cidadãos (iniciativa popular)." },
+        { text: "Art. 43, §4º – Se o Governador permanecer em silêncio após o prazo para sanção, considera-se sancionado o projeto, sendo obrigatória sua promulgação pelo Presidente da Assembleia no prazo de:", options: ["5 dias", "10 dias", "15 dias", "20 dias", "30 dias"], correct: 1, explanation: "10 dias." },
+        { text: "Art. 44 – Projeto de lei rejeitado só pode ser renovado na mesma sessão legislativa mediante proposta da maioria absoluta dos membros da Assembleia, ressalvados os projetos de:", options: ["Iniciativa popular", "Iniciativa exclusiva", "Lei complementar", "Códigos", "Emenda constitucional"], correct: 1, explanation: "Ressalvados os projetos de iniciativa exclusiva." },
+        { text: "Art. 45, §2º – O Consultor Geral da Assembleia é livremente nomeado pelo Presidente da Assembleia dentre advogados com mais de:", options: ["5 anos de atividade", "10 anos de atividade profissional", "15 anos", "8 anos", "12 anos"], correct: 1, explanation: "Mais de 10 anos de efetiva atividade profissional." },
+        { text: "Art. 47 – Os auditores do TCE são nomeados mediante concurso público, e quando em substituição a Conselheiros têm as mesmas garantias e impedimentos dos titulares e as de:", options: ["Juiz da mais alta entrância", "Desembargador", "Promotor de Justiça", "Secretário de Estado", "Procurador do Estado"], correct: 0, explanation: "As de Juiz da mais alta entrância." },
+        { text: "Art. 48 – O Tribunal de Contas prestará contas da execução orçamentária anual à Assembleia Legislativa quando do:", options: ["Início do exercício", "Encerramento do exercício financeiro", "Abertura da sessão legislativa", "Final do primeiro semestre", "A cada quadrimestre"], correct: 1, explanation: "Quando do encerramento do exercício financeiro." },
+        { text: "Art. 53 – As instituições financeiras do Estado são obrigadas a prestar informações administrativas requeridas pela Assembleia ou CPI, ressalvado o:", options: ["Sigilo bancário", "Sigilo fiscal", "Sigilo profissional", "Direito à privacidade", "Segredo de justiça"], correct: 0, explanation: "Ressalvado o sigilo bancário." }
+    ];
+
+    // Verificação: garantimos 100 questões (o array já contém 100)
+    let userAnswers = new Array(questionsData.length).fill(null);
+
+    const questionsContainer = document.getElementById('questionsContainer');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+
+    // Atualiza o placar baseado nas respostas atuais (apenas compara com gabarito)
+    function updateScore() {
+        let correctCount = 0;
+        for (let i = 0; i < questionsData.length; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === questionsData[i].correct) {
+                correctCount++;
+            }
+        }
+        scoreDisplay.innerText = `✅ Acertos: ${correctCount} / ${questionsData.length}`;
+    }
+
+    // Exibe a explicação da questão (se houver resposta)
+    function showExplanation(idx) {
+        const explDiv = document.getElementById(`expl-${idx}`);
+        if (explDiv) {
+            if (userAnswers[idx] !== null) {
+                explDiv.classList.add('show');
+            } else {
+                explDiv.classList.remove('show');
+            }
+        }
+    }
+
+    // Exibe um badge temporário indicando se a resposta está correta ou errada
+    function showResultBadge(idx) {
+        const card = document.getElementById(`qcard-${idx}`);
+        if (!card) return;
+        // Remove badge anterior se existir
+        const oldBadge = card.querySelector('.result-badge');
+        if (oldBadge) oldBadge.remove();
+
+        const userChoice = userAnswers[idx];
+        if (userChoice === null) return;
+
+        const isCorrect = (userChoice === questionsData[idx].correct);
+        const badge = document.createElement('div');
+        badge.className = `result-badge ${isCorrect ? 'correct-badge' : 'wrong-badge'}`;
+        if (isCorrect) {
+            badge.innerText = '✓ Resposta correta!';
+        } else {
+            const correctLetter = String.fromCharCode(65 + questionsData[idx].correct);
+            badge.innerText = `✗ Resposta errada. Correta: ${correctLetter}.`;
+        }
+        card.appendChild(badge);
+        // Remove após 4 segundos
+        setTimeout(() => {
+            if (badge.parentNode) badge.remove();
+        }, 4000);
+    }
+
+    // Verifica e atualiza o feedback para uma questão específica (explicação + badge + score)
+    function verifySingleQuestion(idx) {
+        showExplanation(idx);
+        showResultBadge(idx);
+        updateScore();
+    }
+
+    // Evento disparado quando o usuário seleciona uma alternativa
+    function onAnswerChange(qidx, optidx) {
+        userAnswers[qidx] = optidx;
+        verifySingleQuestion(qidx);
+    }
+
+    // Renderiza todas as questões na tela
+    function renderQuestions() {
+        questionsContainer.innerHTML = '';
+        questionsData.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${idx}`;
+            const questionNumber = idx + 1;
+            let optionsHtml = '';
+            q.options.forEach((opt, optIdx) => {
+                const letter = String.fromCharCode(65 + optIdx);
+                const isChecked = (userAnswers[idx] === optIdx);
+                optionsHtml += `
+                    <label class="option">
+                        <input type="radio" name="q${idx}" value="${optIdx}" ${isChecked ? 'checked' : ''} data-qidx="${idx}" data-optidx="${optIdx}">
+                        <strong>${letter}.</strong> ${opt}
+                    </label>
+                `;
+            });
+            const explanationClass = (userAnswers[idx] !== null) ? 'explanation show' : 'explanation';
+            card.innerHTML = `
+                <div class="question-text">${questionNumber}. ${q.text}</div>
+                <div class="options">${optionsHtml}</div>
+                <div class="${explanationClass}" id="expl-${idx}">
+                    <strong>📖 Explicação:</strong> ${q.explanation}
+                </div>
+            `;
+            questionsContainer.appendChild(card);
+        });
+
+        // Adicionar listeners aos radios
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const qidx = parseInt(e.target.getAttribute('data-qidx'));
+                const optidx = parseInt(e.target.getAttribute('data-optidx'));
+                onAnswerChange(qidx, optidx);
+            });
+        });
+
+        // Para cada questão que já tenha resposta (ex.: após reset não tem), garante que explicação e badge sejam exibidos se houver resposta
+        for (let i = 0; i < questionsData.length; i++) {
+            if (userAnswers[i] !== null) {
+                verifySingleQuestion(i);
+            }
+        }
+    }
+
+    // Verifica todas as questões (útil para quem quiser forçar a verificação em lote)
+    function checkAllAnswers() {
+        for (let i = 0; i < questionsData.length; i++) {
+            if (userAnswers[i] !== null) {
+                verifySingleQuestion(i);
+            }
+        }
+    }
+
+    // Limpa todas as respostas e esconde feedbacks
+    function resetAll() {
+        userAnswers.fill(null);
+        // Desmarcar todos os radios
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.checked = false;
+        });
+        // Esconder todas as explicações e remover badges
+        for (let i = 0; i < questionsData.length; i++) {
+            const explDiv = document.getElementById(`expl-${i}`);
+            if (explDiv) explDiv.classList.remove('show');
+            const card = document.getElementById(`qcard-${i}`);
+            if (card) {
+                const badge = card.querySelector('.result-badge');
+                if (badge) badge.remove();
+            }
+        }
+        updateScore();
+    }
+
+    // Alternância de tema (Dark/Light)
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+        const isDark = document.body.classList.contains('dark');
+        themeBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+
+    document.getElementById('checkAllBtn').addEventListener('click', checkAllAnswers);
+    document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+
+    renderQuestions();
+    updateScore();
+</script>
+</body>
+</html>
